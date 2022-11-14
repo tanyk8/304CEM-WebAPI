@@ -105,28 +105,37 @@ function API(){
 
       var url=`https://api.trace.moe/search?cutBorders&anilistInfo`
       axios.post(url,data).then((res)=>{
-        const filteredAnime=res.data.result.filter((anime)=>anime.similarity>0.87);
+        if(res.data.error==""){
+          const filteredAnime=res.data.result.filter((anime)=>anime.similarity>0.87);
 
-        console.log(filteredAnime)
-        console.log(filteredAnime[0].anilist.title.romaji)
-        
-        var app_sceneTitleName=filteredAnime[0].anilist.title.romaji
-        var app_sceneEpisodeNum=filteredAnime[0].episode
-        var app_sceneTimeEstimate=filteredAnime[0].from
+          console.log(filteredAnime)
+          console.log(filteredAnime[0].anilist.title.romaji)
+          
+          var app_sceneTitleName=filteredAnime[0].anilist.title.romaji
+          var app_sceneEpisodeNum=filteredAnime[0].episode
+          var app_sceneTimeEstimate=filteredAnime[0].from
 
-        axios.get(`http://localhost:5000/addRecord?titlename=`+app_sceneTitleName+`&epinum=`+app_sceneEpisodeNum+`&esttime=`+app_sceneTimeEstimate+`&email=`+email)
-        .then((res) => {
-          //console.log(result);
-          if (res.data === 'Not found') {
+          axios.get(`http://localhost:5000/addRecord?titlename=`+app_sceneTitleName+`&epinum=`+app_sceneEpisodeNum+`&esttime=`+app_sceneTimeEstimate+`&email=`+email)
+          .then((res) => {
+            //console.log(result);
+            if (res.data === 'Not found') {
+              alert('Anime not found!');
+              setStatus(false);
+            }
+            else{
+              populateSearchHistory();
+            }
+          })
+          .catch(error => {
             alert('Anime not found!');
-          }
-          else{
-            populateSearchHistory();
-          }
-        })
-        .catch(error => {
+            setStatus(false);
+          });
+        }
+        else{
           alert('Anime not found!');
-        });
+          console.log(res.data.error);
+          setStatus(false);
+        }
       })
     }
   }
