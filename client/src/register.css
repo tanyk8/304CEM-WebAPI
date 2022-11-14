@@ -1,0 +1,32 @@
+.passtooltip{
+	position:relative;
+}
+
+.passtooltip .passstr{
+	visibility: hidden;
+	background-color: black;
+	color: white;
+	border-radius: 6px;
+	padding: 10px 10px;
+	position: absolute;
+	z-index: 3;
+    width:350px;
+	 
+}
+
+#plength,#psmalla,#pbiga,#pnum,#psym{
+	display:inline;
+	color:red;
+}
+
+
+
+.selectpass:focus + .passstr{
+	visibility: visible;
+}
+
+.registerform{
+    background-color: #282c34;
+    color:white;
+    margin:auto;
+}

@@ -1,0 +1,27 @@
+th,td{
+	text-align: center;
+	padding:10px;
+}
+
+tr:nth-child(even) {
+  background-color: #2b4c4c;
+}
+
+tr:nth-child(1) {
+  background-color: rgb(68, 68, 68);
+}
+
+tr:not(:first-child):nth-child(odd) {
+    background-color: #030d47;
+}
+
+a:link{
+    color: rgb(203, 248, 255);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+ul{
+    display:inline-flex;
+    list-style-type:none;
+}
